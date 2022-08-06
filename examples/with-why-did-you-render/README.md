@@ -2,9 +2,9 @@
 
 This is a simple example of how to use [why-did-you-render](https://github.com/welldone-software/why-did-you-render).
 
-The header component will rerender despite the state staying the same.
+The header component will re-render despite the state staying the same. There is also a button component that causes an unnecessary re-render when clicked.
 
-You can see `why-did-you-render` console logs about this redundant re-render in the developer console.
+You can see `why-did-you-render` console logs about redundant re-renders in the developer console.
 
 ## Installation guide
 
@@ -31,31 +31,7 @@ You can see `why-did-you-render` console logs about this redundant re-render in 
 
 1. Import `scripts/wdyr.js` as the first import of `_app`.
 
-1. Make sure that [`react-preset`](https://babeljs.io/docs/en/babel-preset-react) uses `@welldone-software/why-did-you-render` to import the monkey patched `React` with WDYR, by modifying `next/babel` in `babel.config.js`:
-
-```jsx
-// babel.config.js
-module.exports = function (api) {
-  const isServer = api.caller((caller) => caller?.isServer)
-  const isCallerDevelopment = api.caller((caller) => caller?.isDev)
-
-  const presets = [
-    [
-      'next/babel',
-      {
-        'preset-react': {
-          importSource:
-            !isServer && isCallerDevelopment
-              ? '@welldone-software/why-did-you-render'
-              : 'react',
-        },
-      },
-    ],
-  ]
-
-  return { presets }
-}
-```
+1. Make sure to configure the `jsxImportSource` to be `'@welldone-software/why-did-you-render'` in your `jsconfig.json` or `tsconfig.json` file. This ensures that the JSX runtime that WDYR uses is loaded
 
 ## Deploy your own
 
